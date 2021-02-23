@@ -178,7 +178,11 @@ function deliver(write: QueuedWrite) {
     ref = targetRef!.doc(write.id);
   } else if (TARGET_COLLECTION) {
     ref = targetRef!.doc();
-  } else if (write.doc) {
+  } 
+  else if (write.collection && write.id) {
+    ref = db.collection(write.collection).doc(write.id);
+  }
+  else if (write.doc) {
     ref = db.doc(write.doc);
   } else if (write.collection) {
     ref = db.collection(write.collection).doc();
